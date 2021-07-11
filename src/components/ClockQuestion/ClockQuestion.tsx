@@ -27,7 +27,18 @@ export function shuffle<T>(array: T[]): T[] {
   return array;
 }
 
-export const ClockQuestion = () => {
+export function roundDownToNearest(
+  numberToRound: number,
+  interval: number
+): number {
+  return Math.ceil(numberToRound / interval) * interval;
+}
+
+interface IClockQuestionProps {
+  interval: number;
+}
+
+export const ClockQuestion = ({ interval }: IClockQuestionProps) => {
   const [hourAndMinute, setHourAndMinute] = useState<Time>({
     hour: 0,
     minute: 0,
@@ -37,7 +48,7 @@ export const ClockQuestion = () => {
 
   function calculateRandomHourAndMinute(): Time {
     const hour = Math.floor(Math.random() * 24);
-    const minute = Math.floor(Math.random() * 59);
+    const minute = roundDownToNearest(Math.floor(Math.random() * 59), interval);
 
     return {
       hour,
@@ -60,7 +71,8 @@ export const ClockQuestion = () => {
   }, []);
 
   return (
-    <StyledClockQuestionContainer>
+    <StyledClockQuestionContainer method="GET">
+      <input type="hidden" name="interval" value={interval} />
       <StyledClockQuestionContainerClock>
         <Clock hours={hourAndMinute.hour} minutes={hourAndMinute.minute} />
       </StyledClockQuestionContainerClock>
