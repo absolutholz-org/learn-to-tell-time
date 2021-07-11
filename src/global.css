@@ -1,13 +1,39 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+*,
+::before,
+::after {
+	box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+:root {
+	--surface: hsl(60deg 100% 99%); /* #fffff8 */
+	--on-surface: hsl(240deg 21% 8%); /* #11111a */
+
+	/* https://coolors.co/03045e-023e8a-0077b6-0096c7-00b4d8-48cae4-90e0ef-ade8f4-caf0f8 */
+	--highlight: hsl(201deg 100% 36%); /* #0077b6 */
+	--on-highlight: hsl(0deg 0% 100%); /* #fff */
+
+	background: var(--surface);
+	color: var(--on-surface);
+	font: normal 1em/1.42 system-ui, -apple-system, BlinkMacSystemFont, Segoe UI,
+		Roboto, Helvetica Neue, Helvetica, Arial, sans-serif;
+	height: 100%;
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+	-ms-overflow-style: scrollbar;
+	-webkit-overflow-scrolling: touch;
+	-webkit-tap-highlight-color: hsl(0deg 0% 0% / 0%);
+}
+
+html {
+	height: 100%;
+	overflow-y: scroll;
+}
+
+body {
+	font-size: 1.125em;
+	margin: 0;
+	height: 100%;
+	text-align: left;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
