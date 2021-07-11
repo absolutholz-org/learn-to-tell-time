@@ -1,25 +1,22 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import styled from 'styled-components';
+
+// import { Clock } from './components/Clock';
+import { ClockSvg } from './components/ClockSvg';
+
+const StyledClock = styled.div`
+  /* margin: 4rem; */
+  /* width: 250px; */
+`;
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <StyledClock>
+        {/* <Clock /> */}
+        <ClockSvg hours={10} minutes={10} />
+      </StyledClock>
+    </>
   );
 }
 
