@@ -3,6 +3,8 @@ import styled from 'styled-components';
 
 import { Clock } from '../Clock/Clock';
 
+type InputEvent = React.ChangeEvent<HTMLInputElement>;
+
 const StyledClockQuestionContainer = styled.form`
   text-align: center;
 `;
@@ -43,6 +45,8 @@ export const ClockQuestion = ({ interval }: IClockQuestionProps) => {
     hour: 0,
     minute: 0,
   });
+  const [correctAnswerSelected, setCorrectAnswerSelected] = useState(false);
+  const [selectedAnswer, setSelectedAnswer] = useState('');
 
   const [answers, setAnswers] = useState<Array<Time>>([]);
 
@@ -55,6 +59,16 @@ export const ClockQuestion = ({ interval }: IClockQuestionProps) => {
       minute,
     };
   }, [interval]);
+
+  const onInput = (event: InputEvent): void => {
+    setSelectedAnswer(event.target.value);
+  };
+
+  useEffect(() => {
+    setCorrectAnswerSelected(
+      selectedAnswer === `${hourAndMinute.hour}:${hourAndMinute.minute}`
+    );
+  }, [hourAndMinute, selectedAnswer]);
 
   useEffect(() => {
     setAnswers(
@@ -80,14 +94,21 @@ export const ClockQuestion = ({ interval }: IClockQuestionProps) => {
         <legend>What time is it?</legend>
         {answers.map((answer) => (
           <label key={`answer-${answer.hour}-${answer.minute}`}>
-            <input name="answer" type="radio" />
+            <input
+              name="answer"
+              onChange={onInput}
+              type="radio"
+              value={`${answer.hour}:${answer.minute}`}
+            />
             {answer.hour}:
             {answer.minute < 10 ? `0${answer.minute}` : answer.minute}
           </label>
         ))}
       </StyledClockQuestionContainerAnswers>
       <div>
-        <button type="submit">Next</button>
+        <button disabled={!correctAnswerSelected} type="submit">
+          Next
+        </button>
       </div>
     </StyledClockQuestionContainer>
   );
