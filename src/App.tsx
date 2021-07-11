@@ -1,17 +1,14 @@
-import { ClockQuestion } from './components/ClockQuestion/ClockQuestion';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
+import Home from './views/Home';
+import Practice from './views/Practice';
 
 function App() {
-  const urlParams = new URLSearchParams(window.location.search);
-  let interval = parseInt(urlParams?.get('interval') || '1');
-
-  if (![1, 5, 10, 15].includes(interval)) {
-    interval = 1;
-  }
-
   return (
-    <>
-      <ClockQuestion interval={interval} />
-    </>
+    <Router>
+      <Route path="/" render={Home} exact />
+      <Route path="/practice" component={Practice} />
+    </Router>
   );
 }
 
