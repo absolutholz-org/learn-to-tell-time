@@ -100,18 +100,29 @@ export const ClockQuestion = ({ interval }: IClockQuestionProps) => {
 
 	const [answers, setAnswers] = useState<Array<Time>>([]);
 
-	const calculateRandomHourAndMinute = useCallback((): Time => {
-		const hour = Math.floor(Math.random() * 24);
-		const minute = roundDownToNearest(
-			Math.floor(Math.random() * 59),
-			interval
-		);
+	const calculateRandomHourAndMinute = useCallback(
+		(existingTime?: Time): Time => {
+			const hour = Math.floor(Math.random() * 24);
+			const minute = roundDownToNearest(
+				Math.floor(Math.random() * 59),
+				interval
+			);
 
-		return {
-			hour,
-			minute,
-		};
-	}, [interval]);
+			if (
+				existingTime &&
+				existingTime.hour === hour &&
+				existingTime.minute === minute
+			) {
+				return calculateRandomHourAndMinute(existingTime);
+			}
+
+			return {
+				hour,
+				minute,
+			};
+		},
+		[interval]
+	);
 
 	const onInput = (event: InputEvent): void => {
 		setSelectedAnswer(event.target.value);
