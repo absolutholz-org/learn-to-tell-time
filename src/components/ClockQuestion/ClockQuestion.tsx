@@ -22,11 +22,16 @@ const StyledClockQuestionContainerAnswersLegend = styled.legend`
 
 const StyledClockQuestionContainerAnswers = styled.fieldset`
 	border: 0;
-	margin: 1rem 0;
+	margin: 1rem 0 0;
+	padding: 0;
 `;
 
 const StyledClockQuestionFooter = styled.div`
-	margin-top: 2rem;
+	margin-top: 1rem;
+`;
+
+const StyledClockAnswerWrapper = styled.label`
+	display: inline-flex;
 `;
 
 const StyledClockAnswerLabel = styled.span`
@@ -36,7 +41,7 @@ const StyledClockAnswerLabel = styled.span`
 		0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
 	font-size: 1.5rem;
 	font-weight: 500;
-	margin: 1rem;
+	margin: 0.5rem;
 	padding: 0.5rem 1.5rem 0.6rem;
 	transition-delay: 0s;
 	transition-duration: 250ms;
@@ -146,7 +151,7 @@ export const ClockQuestion = ({ interval }: IClockQuestionProps) => {
 					What time is it?
 				</StyledClockQuestionContainerAnswersLegend>
 				{answers.map((answer) => (
-					<label
+					<StyledClockAnswerWrapper
 						htmlFor={`answer-${answer.hour}:${answer.minute}`}
 						key={`answer-${answer.hour}-${answer.minute}`}
 					>
@@ -163,7 +168,7 @@ export const ClockQuestion = ({ interval }: IClockQuestionProps) => {
 								? `0${answer.minute}`
 								: answer.minute}
 						</StyledClockAnswerLabel>
-					</label>
+					</StyledClockAnswerWrapper>
 				))}
 			</StyledClockQuestionContainerAnswers>
 			<StyledClockQuestionFooter>
