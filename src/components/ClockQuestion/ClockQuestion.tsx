@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import styled from 'styled-components';
 
 import { Clock } from '../Clock/Clock';
@@ -46,7 +46,7 @@ export const ClockQuestion = ({ interval }: IClockQuestionProps) => {
 
   const [answers, setAnswers] = useState<Array<Time>>([]);
 
-  function calculateRandomHourAndMinute(): Time {
+  const calculateRandomHourAndMinute = useCallback((): Time => {
     const hour = Math.floor(Math.random() * 24);
     const minute = roundDownToNearest(Math.floor(Math.random() * 59), interval);
 
@@ -54,7 +54,7 @@ export const ClockQuestion = ({ interval }: IClockQuestionProps) => {
       hour,
       minute,
     };
-  }
+  }, [interval]);
 
   useEffect(() => {
     setAnswers(
@@ -64,11 +64,11 @@ export const ClockQuestion = ({ interval }: IClockQuestionProps) => {
         calculateRandomHourAndMinute(),
       ])
     );
-  }, [hourAndMinute]);
+  }, [hourAndMinute, calculateRandomHourAndMinute]);
 
   useEffect(() => {
     setHourAndMinute(calculateRandomHourAndMinute());
-  }, []);
+  }, [calculateRandomHourAndMinute]);
 
   return (
     <StyledClockQuestionContainer method="GET">
