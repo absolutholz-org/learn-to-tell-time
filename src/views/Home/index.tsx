@@ -11,6 +11,7 @@ const StyledFormLabel = styled.div`
 `;
 
 const StyledFormSelect = styled.select`
+	background: none;
 	border: 2px solid;
 	border-radius: 4px;
 	font: inherit;
