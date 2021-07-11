@@ -12,10 +12,54 @@ const StyledClockQuestionContainer = styled.form`
 
 const StyledClockQuestionContainerClock = styled.div`
 	margin: 0 auto;
-	width: min(500px, 100%);
+	width: min(400px, 100%);
 `;
 
-const StyledClockQuestionContainerAnswers = styled.fieldset``;
+const StyledClockQuestionContainerAnswersLegend = styled.legend`
+	font-weight: 500;
+	margin: 1rem 0;
+`;
+
+const StyledClockQuestionContainerAnswers = styled.fieldset`
+	border: 0;
+	margin: 1rem 0;
+`;
+
+const StyledClockQuestionFooter = styled.div`
+	margin-top: 2rem;
+`;
+
+const StyledClockAnswerLabel = styled.span`
+	border: 2px solid;
+	border-radius: 4px;
+	box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
+		0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+	font-size: 1.5rem;
+	font-weight: 500;
+	margin: 1rem;
+	padding: 0.5rem 1.5rem 0.6rem;
+	transition-delay: 0s;
+	transition-duration: 250ms;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	transition-property: color, box-shadow, border;
+`;
+
+const StyledClockAnswerInput = styled.input`
+	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
+	height: 1px;
+	overflow: hidden;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
+
+	&:checked + * {
+		color: var(--highlight);
+		box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
+			0px 4px 5px 0px rgba(0, 0, 0, 0.14),
+			0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+	}
+`;
 
 interface Time {
 	hour: number;
@@ -98,27 +142,35 @@ export const ClockQuestion = ({ interval }: IClockQuestionProps) => {
 				/>
 			</StyledClockQuestionContainerClock>
 			<StyledClockQuestionContainerAnswers>
-				<legend>What time is it?</legend>
+				<StyledClockQuestionContainerAnswersLegend>
+					What time is it?
+				</StyledClockQuestionContainerAnswersLegend>
 				{answers.map((answer) => (
-					<label key={`answer-${answer.hour}-${answer.minute}`}>
-						<input
+					<label
+						htmlFor={`answer-${answer.hour}:${answer.minute}`}
+						key={`answer-${answer.hour}-${answer.minute}`}
+					>
+						<StyledClockAnswerInput
+							id={`answer-${answer.hour}:${answer.minute}`}
 							name="answer"
 							onChange={onInput}
 							type="radio"
 							value={`${answer.hour}:${answer.minute}`}
 						/>
-						{answer.hour}:
-						{answer.minute < 10
-							? `0${answer.minute}`
-							: answer.minute}
+						<StyledClockAnswerLabel>
+							{answer.hour}:
+							{answer.minute < 10
+								? `0${answer.minute}`
+								: answer.minute}
+						</StyledClockAnswerLabel>
 					</label>
 				))}
 			</StyledClockQuestionContainerAnswers>
-			<div>
+			<StyledClockQuestionFooter>
 				<Button disabled={!correctAnswerSelected} type="submit">
 					Next
 				</Button>
-			</div>
+			</StyledClockQuestionFooter>
 		</StyledClockQuestionContainer>
 	);
 };
