@@ -46,7 +46,7 @@ interface IClockSvgProps {
   minutes?: number;
 }
 
-export const ClockSvg = ({ hours = 0, minutes = 0 }: IClockSvgProps) => {
+export const Clock = ({ hours = 0, minutes = 0 }: IClockSvgProps) => {
   return (
     <svg viewBox="0 0 319 319">
       <circle cx="50%" cy="50%" r="49%" fill="none" stroke="currentColor" />
